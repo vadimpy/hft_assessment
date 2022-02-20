@@ -15,9 +15,9 @@ optional arguments:
   --output OUTPUT    Output dir (output file name is formated <symbol>@<stream>_from_<start>_to_<end>)
 
 ```
-## Get best bid / ask quotes for 5 seconds
+## Example: get 20-depth orderbook each 100 ms for 30 min
 ```shell
-python3 main.py --symbol btcusdt --stream bookTiker --timeout 5 --output ../binance_stream_traces/
+python3 main.py --symbol btcusdt --stream depth20@100ms --timeout 1800 --output ../binance_stream_traces/
 ```
 
 Available streams on [Binance WS API](https://github.com/binance/binance-spot-api-docs/blob/master/web-socket-streams.md#detailed-stream-information)
