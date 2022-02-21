@@ -13,7 +13,7 @@ class VolAnalyzer:
         for i in range(win_len, nticks):
             cum_sum = cum_sum - data[i - win_len] + data[i]
             cum_sum_sqr = cum_sum_sqr - data[i - win_len] ** 2 + data[i] ** 2
-            var[i] = cum_sum_sqr / win_len - (cum_sum / win_len) ** 2
+            var[i] = (cum_sum_sqr / win_len - (cum_sum / win_len) ** 2) * win_len / (win_len - 1)
 
         return var
 
@@ -28,3 +28,14 @@ class VolAnalyzer:
             win_mean[i] = cum_sum / win_len
 
         return win_mean
+
+    def comp_log_return_var(data: np.array, win_len: int) -> np.array:
+        nticks = data.shape[0]
+        var = np.zeros(nticks)
+
+        for i in range(win_len, nticks):
+            log_returns = np.log(data[i-win_len+1:i+1] / data[i-win_len:i])
+            total_log_return = np.log(data[i-win_len] / data[i])
+            var[i] = (np.mean(log_returns ** 2) - (total_log_return / win_len) ** 2) * win_len / (win_len - 1)
+
+        return var
